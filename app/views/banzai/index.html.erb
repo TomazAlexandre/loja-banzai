@@ -1,0 +1,22 @@
+<h1>Carinho de Compras</h1>
+<%= link_to 'Empty Your Cart', banzai_clear_path %>
+<br><br><br>
+
+<% total = 0 %>
+
+<ul>
+<% @banzai.each do  | id, quantity | %>
+    <% product = Product.find_by_id(id) %>
+
+    <li>
+        <%= link_to product.title, product %>
+        <p><%= product.description %></p>
+        <p><%= number_to_currency(product.price, :unit => 'R$') %></p>
+        <p>Quantity: <%= quantity %></p>
+    </li>
+    <% total += quantity * product.price %>
+<% end %>
+
+<p><b><%= number_to_currency(total, :unit => 'R$' ) %></b></p>
+</ul>
+
